@@ -12,7 +12,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     @IBOutlet weak var dacooltableview: UITableView!
     
-    var emojis = ["🍆","🍊","🍒","🥕","🍎","🌭"]
+    var emojis : [Emoji] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +20,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         dacooltableview.dataSource = self
         dacooltableview.delegate = self
+        emojis = makeEmojiArray()
+        
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -29,7 +31,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print(indexPath.row)
         let cell = UITableViewCell()
-        cell.textLabel?.text = emojis [indexPath.row]
+        let emoji = emojis[indexPath.row]
+        cell.textLabel?.text = emoji.stringEmoji
         return cell
     }
     
@@ -42,7 +45,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let defVC = segue.destination as!
             DefinitionViewController
-        defVC.emoji = sender as! String
+            defVC.emoji = sender as! Emoji
     }
     
     override func didReceiveMemoryWarning() {
@@ -50,6 +53,46 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Dispose of any resources that can be recreated.
     }
 
+    func makeEmojiArray() -> [Emoji] {
+        let emoji1 = Emoji()
+        emoji1.stringEmoji="🍆"
+        emoji1.birthYear = 2011
+        emoji1.category = "Fruit"
+        emoji1.definition = "Eggplant"
+
+        let emoji2 = Emoji()
+        emoji2.stringEmoji="🍊"
+        emoji2.birthYear = 2012
+        emoji2.category = "Fruit"
+        emoji2.definition = "Orange"
+        
+        let emoji3 = Emoji()
+        emoji3.stringEmoji="🍒"
+        emoji3.birthYear = 2013
+        emoji3.category = "Fruit"
+        emoji3.definition = "Cherries"
+        
+        let emoji4 = Emoji()
+        emoji4.stringEmoji="🥕"
+        emoji4.birthYear = 2014
+        emoji4.category = "Vegetable"
+        emoji4.definition = "Carrot"
+        
+        let emoji5 = Emoji()
+        emoji5.stringEmoji="🍎"
+        emoji5.birthYear = 2015
+        emoji5.category = "Fruit"
+        emoji5.definition = "Apple"
+        
+        let emoji6 = Emoji()
+        emoji6.stringEmoji="🌭"
+        emoji6.birthYear = 2016
+        emoji6.category = "Meal"
+        emoji6.definition = "Hot Dog"
+    
+        return[emoji1, emoji2, emoji3, emoji4, emoji5, emoji6]
+
+    }
 
 }
 
